@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  height: 100%;
+}
+.row{
+  margin-right: 0px;
+}
+
+section {
+  margin: 0 20px;
+}
+
+.navbar-nav li.loader {
+  margin: 12px 24px 0 6px;
+}
+
+
+.spinner {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid rgba(92, 184, 92, 0); /* Green */
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

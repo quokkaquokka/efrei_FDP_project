@@ -1,0 +1,17 @@
+<template>
+  <require from="bootstrap/dist/css/bootstrap.min.css"></require>
+  <require from="font-awesome/css/font-awesome.min.css"></require>
+  <require from="./styles.less"></require>
+  <require from="./navbar"></require>
+  <require from="./navuser"></require>
+  <navuser style="padding-bottom: 0px;"></navuser>
+  <div class="row" style="height: 100%;">
+    <navbar router.bind="router" class="ml-3 bg-info" router.bind="router" style="height: auto; min-height: 100vh; width: 200px;"></navbar>
+    <div class="col-10 mx-auto" style="z-index: 1;">
+      <router-view></router-view>
+    </div>
+  </div>
+</template>
+
+
+
