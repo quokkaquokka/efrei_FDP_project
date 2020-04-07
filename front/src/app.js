@@ -37,7 +37,14 @@ export class App {
           img: 'fas fa-user-plus',
           data: 'false'
         }
-      }
+      },
+	  {
+		  route: ['upload'],
+		  name: 'upload',
+		  moduleId: PLATFORM.moduleName('./upload'),
+		  nav: true,
+		  title: 'upload' //may need settings or nav: false
+	  }
     ]);
 
     this.router = router;

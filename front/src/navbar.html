@@ -1,5 +1,5 @@
 <template bindable="router">
-  <nav role="navigation" style="position: sticky; top: 78px;">
+  <nav role="navigation" style="position: sticky; top: 55px;">
     <div id="navigation-navbar-collapse-1" style="height: 100%;">
       <ul class="nav flex-column nav-pills" style="height: 100%;">
         <li repeat.for="row of router.navigation" if.bind="permission(row.settings.data) & signal:'my-signal'">
