@@ -12,7 +12,7 @@ export class Upload {
 		this.year = null;
     }
 	
-	sendMSG() { // button "envoyer" is pressed
+	sendMSG() { // "envoyer" button is pressed
 		// DO SOMETHING HERE
 	}
 }
