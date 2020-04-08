@@ -1,0 +1,13 @@
+<template>
+	<div class="form-group">
+		<h3>Ajout d'un historique</h3>
+		<input type="text" name="fichier" class="form-control" value.bind="file">
+	</div>
+	<div class="form-row">
+		<div class="col-auto">
+		  <h3 for="inlineFormInput">Année</h3>
+		  <input type="text" class="inline form-control mb-2" name="année" value.bind="year">
+		</div>
+	</div>
+	<div style="float: right; margin-top: 10px"><button type="submit" id="snd" class="clickableTitle" click.delegate="sendMSG()" ><i class="fas fa-send"></i>&nbsp envoyer &nbsp</button></div>
+</template>
