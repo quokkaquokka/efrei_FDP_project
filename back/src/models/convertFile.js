@@ -1,67 +1,72 @@
-const mongodb = require('../services/mongodb.js')
 const axios = require('axios').default
 const stripBom = require('strip-bom-stream')
-const stream = require('stream')
 const csv = require('csv-parser')
 const fs = require('fs')
+const mongodb = require('../services/mongodb')
+const path = require('path')
+const stream = require('stream')
+const util = require('util')
+const finished = util.promisify(stream.finished)
+
+// const COLLECTION_DATA = 'historic-data'
 
 const exp = module.exports =  {
-  saveJSONtoDb: async function() {
-    const mongoClient = new mongodb.MongoClient(config.mongodb.uri, {
-      poolSize: 10,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
+  saveJSONtoDb: function(options) {
+    if (!options.collectionName) {
+      throw new Error('Collection name not provided.')
+    }
 
-    await mongoClient.connect()
-    const db = mongoClient.db(config.mongodb.dbname)
-    
-    const historicData = db.collection('historic-data')
-    
-    const saveToDb = new stream.Writable({
+    return new stream.Writable({
       objectMode: true,
       writev: async (chunks, cb) => {
-        await historicData.insertMany(chunks.map(c => c.chunk))
+        const data = chunks.map(c => c.chunk)
+        // JSON modification must be here
+        // data.map(j => { j.toto = true; return j})
+        await mongodb.insert(options.collectionName, data)
         cb()
       },
     })
   },
-  parseCsvFromUrl: async function (url, options = {}) {
-    const saveToDb = new stream.Writable({
-      objectMode: true,
-      writev: async (chunks, cb) => {
-        console.log('## ', chunks.map(c => c.chunk))
-        // await historicData.insertMany(chunks.map(c => c.chunk))
-        cb()
-      },
-    })
 
-    fs.createReadStream('./files_csv/test.csv')
-        .pipe(stripBom())
-        .pipe(csv(options))
-        .pipe(saveToDb)
-
-    /*
+  handleStream: async function(inputStream, options) {
+    stream.pipeline(inputStream, 
+      stripBom(), 
+      csv(options.csv),
+      this.saveJSONtoDb(options),
+      async (error, val) => {
+        if (error) {
+          console.log('Error occured', error)
+        }
+        console.log('Done', val)
+        await mongodb.close()
+      }  
+    )
+  },
+  parseCsvFile: async function (CsvFile, options = { csv: {/* separator: ';' */}, /* collectionName */}) {
+    const filePath = path.join(__dirname, CsvFile)
+    const pipeline = fs.createReadStream(filePath)
+    this.handleStream(pipeline, options)
+  },
+  parseCsvFromUrl: async function (url, options = {csv: {}}) {
     return axios({
       method: 'get',
       url,
       responseType: 'stream'
     })
-    .then(function (response) {
+    .then(async response => {
       const streamData = response.data
-
-      return streamData
-        // .pipe(stripBom())
-        .pipe(csv({separator: ';'}))
-        .pipe(saveToDb)
-    })*/
+      this.handleStream(streamData, options)
+    })
   }
 
 }
 
 async function main() {
   // https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv
-  await exp.parseCsvFromUrl('')
+  await mongodb.connect();
+  await exp.parseCsvFromUrl('https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv', {collectionName: 'historic-data', csv: {separator: ';'}})
+  // await exp.parseCsvFile('../../files_csv/test.csv', {collectionName: 'historic-data'})
+  console.log('Done')
 }
 
 main()

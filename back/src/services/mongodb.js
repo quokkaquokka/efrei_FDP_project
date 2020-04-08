@@ -17,6 +17,9 @@ const connect = async () => {
   internals.db = internals.client.db(config.mongodb.dbname)
   return internals.db
 }
+const close = async () => {
+  await internals.client.close()
+}
 
 const fetch = async (collectionName, query = {}) => {
   return internals.db
@@ -58,8 +61,9 @@ const transaction = async (operationsFunc, transactionOptions = {}) => {
   }
 }
 
-module.export = {
+module.exports = {
   connect,
+  close,
   getDb: () => internals.db,
   fetch,
   insert,
