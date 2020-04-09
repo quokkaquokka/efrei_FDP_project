@@ -5,7 +5,9 @@ const Path = require('path')
 const glob = require('glob');
 const chalk = require('chalk');
 const Inert = require('inert');
-const SocketIo = require('socket.io');
+const socketManager = require('./services/socket');
+const msgGen = require('./services/droneMessageGenerator')
+const droneMessageHandler = require('./services/droneMessageHandler')
 
 const mongodb = require('./services/mongodb.js');
 
@@ -73,22 +75,7 @@ const init = async () => {
     });
   }
 
-  const io = SocketIo.listen(server.listener)
-
-  io.sockets.on('connection', (socket) => {
-    console.log('SIO: connexion');
-    socket.emit('welcome', 'Connexion réussie')
-
-    socket.on('connect', function (data) {
-      console.log('SIO: Connect');
-      socket.emit('welcome', 'Connexion réussie')
-    });
-
-    socket.on('another-event', function (data) {
-      console.log('SIO: another-event');
-      socket.emit('msg', 'ACK')
-    });
-  })
+  socketManager.init(server)
 
   // Start the server
   try {
@@ -111,3 +98,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 init()
+.then(() => {
+  droneMessageHandler.violationQueueHandlerJob()
+  msgGen.violationGeneratorJob(droneMessageHandler.handleDroneMessage)
+})
