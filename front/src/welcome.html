@@ -20,7 +20,7 @@
           <td>${ intervention.code }</td>
           <td>${ intervention.reason }</td>
           <td>
-            <button if.bind="!itemTaken || itemTaken !== intervention.uuid" disabled.bind="itemTaken" click.delegate="takeIntervention(intervention)">Take</button>
+            <button if.bind="!itemTaken || itemTaken !== intervention.uuid" disabled.bind="itemTaken || intervention.taken" click.delegate="takeIntervention(intervention)">Take</button>
             <button if.bind="itemTaken === intervention.uuid" click.delegate="returnIntervention(intervention)">Return</button>
             <button if.bind="itemTaken === intervention.uuid" click.delegate="closeIntervention(intervention)">close</button>
           </td>
