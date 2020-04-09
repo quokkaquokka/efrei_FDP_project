@@ -1,5 +1,61 @@
 <template>
+  <h3>Interventions</h3>
+  <table>
+    <thead>
+      <tr>
+          <th>id</th>
+          <th>id drone</th>
+          <th>l'heure</th>
+          <th>coordonnée</th>
+          <th>code</th>
+          <th>Raison</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr repeat.for="intervention of interventions | limitTo:5" style.bind="itemTaken === intervention.uuid || intervention.taken ? 'background-color: grey': ''">
+          <td> ${ intervention.uuid }</td>
+          <td>${ intervention.droneId }</td>
+          <td>${ intervention.ts }</td>
+          <td>${ intervention.coordinates }</td>
+          <td>${ intervention.code }</td>
+          <td>${ intervention.reason }</td>
+          <td>
+            <button if.bind="!itemTaken || itemTaken !== intervention.uuid" disabled.bind="itemTaken" click.delegate="takeIntervention(intervention)">Take</button>
+            <button if.bind="itemTaken === intervention.uuid" click.delegate="returnIntervention(intervention)">Return</button>
+            <button if.bind="itemTaken === intervention.uuid" click.delegate="closeIntervention(intervention)">close</button>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <h3>Last Violations</h3>
+  <table>
+    <thead>
+      <tr>
+          <th>id</th>
+          <th>id drone</th>
+          <th>l'heure</th>
+          <th>coordonnée</th>
+          <th>code</th>
+          <th>imageId</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr repeat.for="violation of violations">
+          <td> ${ violation.uuid }</td>
+          <td>${ violation.droneId }</td>
+          <td>${ violation.ts }</td>
+          <td>${ violation.coordinates }</td>
+          <td>${ violation.code }</td>
+          <td>${ violation.imageId }</td>
+        </tr>
+    </tbody>
+  </table>
+
+  <div if.bind="droneControl" style="width: 500px; height: 200px; background-color: blue;">
+
   <button disabled.bind="pongReception" click.delegate="actionButton()">Ping</button>
   <div style="width: 100px; height: 100px; background-color: blue;" style.bind="pongReception ? 'background-color: red': 'background-color: blue'">
   </div>
+
 </template>
