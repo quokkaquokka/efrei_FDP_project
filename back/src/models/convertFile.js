@@ -18,6 +18,7 @@ const exp = module.exports =  {
 
     return new stream.Writable({
       objectMode: true,
+      autoDestroy: true,
       writev: async (chunks, cb) => {
         const data = chunks.map(c => c.chunk)
         // JSON modification must be here

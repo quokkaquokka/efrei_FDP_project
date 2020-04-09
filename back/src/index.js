@@ -5,6 +5,7 @@ const Path = require('path')
 const glob = require('glob');
 const chalk = require('chalk');
 const Inert = require('inert');
+const SocketIo = require('socket.io');
 
 
 
@@ -13,7 +14,7 @@ const init = async () => {
   const server = Hapi.server({
     host: process.env.HOST || "localhost",
     port: 8000,
-    routes: { 
+    routes: {
       cors: true,
       files: {
         relativeTo: Path.join(__dirname, '../dist')
@@ -33,28 +34,28 @@ const init = async () => {
   });
 
 
-  const loadRoutes = async function() {
+  const loadRoutes = async function () {
     const cwd = Path.resolve(__dirname, '.');
-      console.log('loadRoutes - __dirname', __dirname)
-      const routes = glob.sync('**/*.route.js', {cwd: cwd})
+    console.log('loadRoutes - __dirname', __dirname)
+    const routes = glob.sync('**/*.route.js', { cwd: cwd })
 
-      routes.forEach(route => {
-        var route = require(Path.resolve(cwd, route));
+    routes.forEach(route => {
+      var route = require(Path.resolve(cwd, route));
 
-        try {
-          server.route(route)
-          console.log('Route: ', route.path, '(' + route.method + ')');
-        } catch (e) {
-          throw new Error('Cannot load route ' + route + ':\n' + e.stack.replace(/^/gm, chalk.grey('  > ')))
-        }
+      try {
+        server.route(route)
+        console.log('Route: ', route.path, '(' + route.method + ')');
+      } catch (e) {
+        throw new Error('Cannot load route ' + route + ':\n' + e.stack.replace(/^/gm, chalk.grey('  > ')))
+      }
     })
   }
 
   server.route({
     method: 'GET',
-    path:'/healthcheck',
+    path: '/healthcheck',
     handler: (request, h) => {
-      return {status: 'ok'};
+      return { status: 'ok' };
     }
   });
 
@@ -68,9 +69,25 @@ const init = async () => {
           index: true,
         }
       }
-    });    
+    });
   }
 
+  const io = SocketIo.listen(server.listener)
+
+  io.sockets.on('connection', (socket) => {
+    console.log('SIO: connexion');
+    socket.emit('welcome', 'Connexion réussie')
+
+    socket.on('connect', function (data) {
+      console.log('SIO: Connect');
+      socket.emit('welcome', 'Connexion réussie')
+    });
+
+    socket.on('another-event', function (data) {
+      console.log('SIO: another-event');
+      socket.emit('msg', 'ACK')
+    });
+  })
 
   // Start the server
   try {
@@ -91,4 +108,4 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
-init();
+init()

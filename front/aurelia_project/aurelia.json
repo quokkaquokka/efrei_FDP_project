@@ -26,5 +26,10 @@
     "port": 8181,
     "output": "dist"
   },
-  "packageManager": "npm"
+  "packageManager": "npm",
+  "dependencies": [{
+    "name": "socket.io-client",
+    "path": "../node_modules/socket.io-client/dist",
+    "main": "socket.io"
+  }]
 }

@@ -1,2 +1,5 @@
 <template>
+  <button disabled.bind="pongReception" click.delegate="actionButton()">Ping</button>
+  <div style="width: 100px; height: 100px; background-color: blue;" style.bind="pongReception ? 'background-color: red': 'background-color: blue'">
+  </div>
 </template>
