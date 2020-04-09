@@ -39,11 +39,26 @@ export class App {
         }
       },
 	  {
-		  route: ['upload'],
-		  name: 'upload',
-		  moduleId: PLATFORM.moduleName('./upload'),
-		  nav: true,
-		  title: 'upload' //may need settings or nav: false
+		route: ['upload'],
+		name: 'upload',
+		moduleId: PLATFORM.moduleName('./upload'),
+		nav: true,
+		title: 'upload',
+		settings:{
+          img: 'fas fa-upload',
+          data: 'false'
+        }
+	  },
+	  {
+		route: ['view'],
+		name: 'view',
+		moduleId: PLATFORM.moduleName('./view'),
+		nav: true,
+		title: 'view',
+		settings:{
+			img: 'fas fa-eye',
+			data: 'false'
+		}
 	  }
     ]);
 
