@@ -2,7 +2,7 @@ import {PLATFORM} from 'aurelia-pal';
 
 export class App {
   configureRouter(config, router) {
-    config.title = 'Terrapretta';
+    config.title = 'PrestaCop';
     config.map([
       {
         route: ['', 'welcome'],

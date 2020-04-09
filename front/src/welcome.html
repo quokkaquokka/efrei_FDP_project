@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-        <tr repeat.for="intervention of interventions | limitTo:5" style.bind="itemTaken === intervention.uuid || intervention.taken ? 'background-color: grey': ''">
+        <tr repeat.for="intervention of interventions | limitTo:5" style.bind="itemTaken === intervention.uuid || intervention.taken ? 'background-color: #d9edf7; color: grey': 'color: black'">
           <td> ${ intervention.uuid }</td>
           <td>${ intervention.droneId }</td>
           <td>${ intervention.ts }</td>
@@ -20,9 +20,9 @@
           <td>${ intervention.code }</td>
           <td>${ intervention.reason }</td>
           <td>
-            <button if.bind="!itemTaken || itemTaken !== intervention.uuid" disabled.bind="itemTaken || intervention.taken" click.delegate="takeIntervention(intervention)">Take</button>
-            <button if.bind="itemTaken === intervention.uuid" click.delegate="returnIntervention(intervention)">Return</button>
-            <button if.bind="itemTaken === intervention.uuid" click.delegate="closeIntervention(intervention)">close</button>
+            <button class="btn btn-primary" if.bind="!itemTaken || itemTaken !== intervention.uuid" disabled.bind="itemTaken || intervention.taken" click.delegate="takeIntervention(intervention)">Take</button>
+            <button class="btn btn-secondary" if.bind="itemTaken === intervention.uuid" click.delegate="returnIntervention(intervention)">Return</button>
+            <button class="btn btn-primary" if.bind="itemTaken === intervention.uuid" click.delegate="closeIntervention(intervention)">close</button>
           </td>
         </tr>
     </tbody>
@@ -52,10 +52,12 @@
     </tbody>
   </table>
 
-  <div if.bind="droneControl" style="width: 500px; height: 200px; background-color: grey;">
+  <div if.bind="droneControl" style="width: 500px; height: 200px; background-color: #d9edf7;">
 
-  <div style="width: 400px; height: 200px; background-color: gray;margin-top: 20px;float:center" style.bind="pongReception ? 'background-color: red': 'background-color: grey'">
-    <h3> Symbolise le client lourd qui prendra le controle du drone</h3>
+    <div style="width: 400px; height: 200px; margin-top: 20px;float:center" style.bind="pongReception ? 'background-color: red': 'background-color: #d9edf7'">
+      <h3> Symbolise le client lourd qui prendra le controle du drone</h3>
+      <img class="m-3" src="resources/drone.png"></img>
+    </div>
   </div>
 
 </template>
