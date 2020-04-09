@@ -7,6 +7,7 @@ const path = require('path')
 const stream = require('stream')
 const util = require('util')
 const finished = util.promisify(stream.finished)
+const _ = require('lodash')
 
 // const COLLECTION_DATA = 'historic-data'
 
@@ -20,9 +21,24 @@ const exp = module.exports =  {
       objectMode: true,
       autoDestroy: true,
       writev: async (chunks, cb) => {
-        const data = chunks.map(c => c.chunk)
-        // JSON modification must be here
-        // data.map(j => { j.toto = true; return j})
+        let data = chunks.map(({chunk}) => {
+          const res = {}
+          for (let [key, value] of Object.entries(chunk)) {
+            const attr = _.camelCase(key)
+            res[attr] = value
+          }
+          return res
+        })
+        // // JSON modification must be here
+        // data = data.map(j => { 
+        //   const n = {}
+        //   const keys = Object.keys(data).forEach(k => {
+        //     const attr = _.camelCase(k)
+        //     console.log('new key', attr)
+        //     n[attr] = data[k]
+        //   })
+        // })
+        // console.log('DATA transformed: ', data)
         await mongodb.insert(options.collectionName, data)
         cb()
       },
@@ -65,8 +81,8 @@ const exp = module.exports =  {
 async function main() {
   // https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv
   await mongodb.connect();
-  await exp.parseCsvFromUrl('https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv', {collectionName: 'historic-data', csv: {separator: ';'}})
-  // await exp.parseCsvFile('../../files_csv/test.csv', {collectionName: 'historic-data'})
+  //await exp.parseCsvFromUrl('https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv', {collectionName: 'historic-data', csv: {separator: ';'}})
+  await exp.parseCsvFile('../../files_csv/test.csv', {collectionName: 'historic-data'})
   console.log('Done')
 }
 

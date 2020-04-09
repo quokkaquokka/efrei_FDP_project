@@ -1,61 +1,74 @@
-import {PLATFORM} from 'aurelia-pal';
-import {inject}  from "aurelia-framework";
-import {Router}  from "aurelia-router";
+import {inject}  from 'aurelia-framework';
+import {Router}  from 'aurelia-router';
+import axios from 'axios';
 import config from './config';
 
 @inject(Router)
 export class View {
 	heading = 'search and view data';
 	constructor(router) {
-        this.router = router;
-		this.tableIndex = 3;
-		this.summonsNb = null;
-		this.plateId = null;
-		this.registrationState = null;
-		this.plateType = null;
-		this.issueDate = null;
-		this.violationCode = null;
-		this.vehicleBodyType = null;
-		this.vehicleMake = null;
-		this.issuingAgency = null;
-		this.streetCode1 = null;
-		this.streetCode2 = null;
-		this.streetCode3 = null;
-		this.vehicleExpirationDate = null;
-		this.violationLocation = null;
-		this.violationPrecinct = null;
-		this.issuerPrecinct = null;
-		this.issuerCode = null;
-		this.issuerCommand = null;
-		this.issuerSquad = null;
-		this.violationTime = null;
-		this.timeFirstObserved = null;
-		this.violationCounty = null;
-		this.violationInFrontOfOrOpposite = null;
-		this.houseNumber = null;
-		this.streetName = null;
-		this.intersectingStreet = null;
-		this.dateFirstObserved = null;
-		this.lawSection = null;
-		this.subDivision = null;
-		this.violationLegalCode = null;
-		this.daysParkingInEffect = null;
-		this.fromHoursInEffect = null;
-		this.toHoursInEffect = null;
-		this.vehicleColor = null;
+	  this.router = router;
+	  this.data = null;
+	  this.tableIndex = 3;
+	  this.summonsNb = null;
+	  this.plateId = null;
+	  this.registrationState = null;
+	  this.plateType = null;
+	  this.issueDate = null;
+	  this.violationCode = null;
+	  this.vehicleBodyType = null;
+	  this.vehicleMake = null;
+	  this.issuingAgency = null;
+	  this.streetCode1 = null;
+	  this.streetCode2 = null;
+	  this.streetCode3 = null;
+	  this.vehicleExpirationDate = null;
+	  this.violationLocation = null;
+	  this.violationPrecinct = null;
+	  this.issuerPrecinct = null;
+	  this.issuerCode = null;
+	  this.issuerCommand = null;
+	  this.issuerSquad = null;
+	  this.violationTime = null;
+	  this.timeFirstObserved = null;
+	  this.violationCounty = null;
+	  this.violationInFrontOfOrOpposite = null;
+	  this.houseNumber = null;
+	  this.streetName = null;
+	  this.intersectingStreet = null;
+	  this.dateFirstObserved = null;
+	  this.lawSection = null;
+	  this.subDivision = null;
+	  this.violationLegalCode = null;
+	  this.daysParkingInEffect = null;
+	  this.fromHoursInEffect = null;
+	  this.toHoursInEffect = null;
+	  this.vehicleColor = null;
+	  // eslint-disable-next-line indent
 		this.unregisteredVehicle = null;
-		this.vehicleYear = null;
-		this.meterNumber = null;
-		this.feetFromCurb = null;
-		this.violationPostCode = null;
-		this.violationDescription = null;
-		this.noStandingOrStoppingViolation = null;
-		this.hydrantViolation = null;
-		this.doubleParkingViolation = null;
-    }
-	
-	searchInfos(){ // "chercher" button is pressed
-		/*var table = document.getElementById("searchTable");
+	  this.vehicleYear = null;
+	  this.meterNumber = null;
+	  this.feetFromCurb = null;
+	  this.violationPostCode = null;
+	  this.violationDescription = null;
+	  this.noStandingOrStoppingViolation = null;
+	  this.hydrantViolation = null;
+	  this.doubleParkingViolation = null;
+	}
+
+	activate() {
+		this.getDatas();
+	}
+
+	async getDatas() {
+	  const response = await axios.get(config.host + '/api/v1/historicdatas');
+		this.data = response.data;
+		// response.forEach
+		console.log(response.data[1]);
+	}
+
+	searchInfos() { // "chercher" button is pressed
+	  /*var table = document.getElementById("searchTable");
 		var row = table.insertRow(this.tableIndex);
 		this.tableIndex++;
 		var cellSummonsNb = row.insertCell(0);
@@ -101,10 +114,11 @@ export class View {
 		var cellNoStandingOrStoppingViolation = row.insertCell(40);
 		var cellHydrantViolation = row.insertCell(41);
 		var cellDoubleParkingViolation = row.insertCell(42);*/
-		
-		//SEARCH FUNCTION NEEDS TO BE IMPLEMENTED HERE
-		
-		//example of cell filling (new line insertion is already implemented): cellExample.innerHTML = "CONTENTOFNEWCELL";
-		//sadly, we have to do it for each of 43 cells...
+	  //SEARCH FUNCTION NEEDS TO BE IMPLEMENTED HERE
+
+	  //example of cell filling (new line insertion is already implemented): cellExample.innerHTML = "CONTENTOFNEWCELL";
+	  //sadly, we have to do it for each of 43 cells...
 	}
+
+
 }

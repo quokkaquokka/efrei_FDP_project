@@ -7,6 +7,7 @@ const chalk = require('chalk');
 const Inert = require('inert');
 const SocketIo = require('socket.io');
 
+const mongodb = require('./services/mongodb.js');
 
 
 const init = async () => {
@@ -91,6 +92,7 @@ const init = async () => {
 
   // Start the server
   try {
+    await mongodb.connect()
     await loadRoutes()
     serveFile()
     await server.start();

@@ -92,7 +92,52 @@
 			<td><input type="text" name="hydrant_violation" size="13" value.bind="hydrantViolation"></td>
 			<td><input type="text" name="double_parking_violation" size="19" value.bind="doubleParkingViolation"></td>
 		<tr>
-		<tr>
+		<td repeat.for="item of data">
+			<td> ${ item.ummonsNumber } </td>
+			<td> ${ item.plateId } </td>
+			<td> ${ item.registrationState } </td>
+			<td> ${ item.plateType } </td>
+			<td> ${ item.issueDate } </td>
+			<td> ${ item.violationCode } </td>
+			
+			<td><input type="text" name="vehicle_body_type" maxlength="4" size="15" value.bind="vehicleBodyType"></td>
+			<td><input type="text" name="vehicle_make" maxlength="5" size="10" value.bind="vehicleMake"></td>
+			<td><input type="text" name="issuing_agency" maxlength="1" size="12" value.bind="issuingAgency"></td>
+			<td><input type="text" name="street_code1" maxlength="5" size="10" value.bind="streetCode1"></td>
+			<td><input type="text" name="street_code2" maxlength="5" size="10" value.bind="streetCode2"></td>
+			<td><input type="text" name="street_code3" maxlength="5" size="10" value.bind="streetCode3"></td>
+			<td><input type="text" name="vehicle_expiration_date" maxlength="8" size="18" value.bind="vehicleExpirationDate"></td>
+			<td><input type="text" name="violation_location" maxlength="4" size="15" value.bind="violationLocation"></td>
+			<td><input type="text" name="violation_precinct" maxlength="3" size="15" value.bind="violationPrecinct"></td>
+			<td><input type="text" name="issuer_precinct" maxlength="3" size="12" value.bind="issuerPrecinct"></td>
+			<td><input type="text" name="issuer_code" maxlength="6" size="8" value.bind="issuerCode"></td>
+			<td><input type="text" name="issuer_command" maxlength="4" size="13" value.bind="issuerCommand"></td>
+			<td><input type="text" name="issuer_squad" maxlength="4" size="10" value.bind="issuerSquad"></td>
+			<td><input type="text" name="violation_time" maxlength="5" size="10" value.bind="violationTime"></td>
+			<td><input type="text" name="time_first_observed" maxlength="5" size="15" value.bind="timeFirstObserved"></td>
+			<td><input type="text" name="violation_county" maxlength="2" size="12" value.bind="violationCounty"></td>
+			<td><input type="text" name="violation_in_front_of_or_opposite" maxlength="1" size="25" value.bind="violationInFrontOfOrOpposite"></td>
+			<td><input type="text" name="house_number" maxlength="6" size="10" value.bind="houseNumber"></td>
+			<td><input type="text" name="street_name" size="20" value.bind="streetName"></td>
+			<td><input type="text" name="intersecting_street" size="20" value.bind="intersectingStreet"></td>
+			<td><input type="text" name="date_first_observed" maxlength="8" size="15" value.bind="dateFirstObserved"></td>
+			<td><input type="text" name="law_section" maxlength="3" size="8" value.bind="lawSection"></td>
+			<td><input type="text" name="sub_division" maxlength="2" size="8" value.bind="subDivision"></td>
+			<td><input type="text" name="violation_legal_code" maxlength="10" size="15" value.bind="violationLegalCode"></td>
+			<td><input type="text" name="days_parking_in_effect" maxlength="7" size="17" value.bind="daysParkingInEffect"></td>
+			<td><input type="text" name="from_hours_in_effect" maxlength="5" size="15" value.bind="fromHoursInEffect"></td>
+			<td><input type="text" name="to_hours_in_effect" maxlength="5" size="15" value.bind="toHoursInEffect"></td>
+			<td><input type="text" name="vehicle_color" maxlength="5" size="9" value.bind="vehicleColor"></td>
+			<td><input type="text" name="unregistered_vehicle" maxlength="10" size="16" value.bind="unregisteredVehicle"></td>
+			<td><input type="text" name="vehicle_year" maxlength="4" size="8" value.bind="vehicleYear"></td>
+			<td><input type="text" name="meter_number" size="10" value.bind="meterNumber"></td>
+			<td><input type="text" name="feet_from_curb" size="10" value.bind="feetFromCurb"></td>
+			<td><input type="text" name="violation_post_code" maxlength="4" size="15" value.bind="violationPostCode"></td>
+			<td><input type="text" name="violation_description" size="20" value.bind="violationDescription"></td>
+			<td><input type="text" name="no_standing_or_stopping_violation" size="28" value.bind="noStandingOrStoppingViolation"></td>
+			<td><input type="text" name="hydrant_violation" size="13" value.bind="hydrantViolation"></td>
+			<td><input type="text" name="double_parking_violation" size="19" value.bind="doubleParkingViolation"></td>
+
 		</tr>
 	</table>
 </template>

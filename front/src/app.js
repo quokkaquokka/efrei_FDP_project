@@ -16,13 +16,35 @@ export class App {
 
         }
       },
+	    {
+        route: ['upload'],
+        name: 'upload',
+        moduleId: PLATFORM.moduleName('./upload'),
+        nav: true,
+        title: 'upload',
+        settings: {
+          img: 'fas fa-upload',
+          data: 'false'
+        }
+      },
+      {
+        route: ['view'],
+        name: 'view',
+        moduleId: PLATFORM.moduleName('./view'),
+        nav: true,
+        title: 'view',
+        settings: {
+          img: 'fas fa-eye',
+          data: 'false'
+        }
+      },
       {
         route: ['login'],
         name: 'Login',
         moduleId: PLATFORM.moduleName('./login'),
         nav: true,
         title: 'Login',
-        settings:{
+        settings: {
           img: 'fas fa-sign-in-alt',
           data: 'false'
         }
@@ -33,35 +55,12 @@ export class App {
         moduleId: PLATFORM.moduleName('./signin'),
         nav: true,
         title: 'signin',
-        settings:{
+        settings: {
           img: 'fas fa-user-plus',
           data: 'false'
         }
-      },
-	  {
-		route: ['upload'],
-		name: 'upload',
-		moduleId: PLATFORM.moduleName('./upload'),
-		nav: true,
-		title: 'upload',
-		settings:{
-          img: 'fas fa-upload',
-          data: 'false'
-        }
-	  },
-	  {
-		route: ['view'],
-		name: 'view',
-		moduleId: PLATFORM.moduleName('./view'),
-		nav: true,
-		title: 'view',
-		settings:{
-			img: 'fas fa-eye',
-			data: 'false'
-		}
-	  }
+      }
     ]);
-
     this.router = router;
   }
 }
