@@ -43,6 +43,18 @@ export class Welcome {
       }
     });
 
+    this.eventAggregator.subscribe('disable-intervention', payload => {
+      console.log('--  disable-intervention', typeof payload, payload)
+      const intervention = this.interventions.find(e => e.uuid === payload.uuid)
+      intervention.taken = true
+    });
+
+    this.eventAggregator.subscribe('returned-intervention', payload => {
+      console.log('--  returned-intervention', typeof payload, payload)
+      const intervention = this.interventions.find(e => e.uuid === payload.uuid)
+      intervention.taken = false
+    });
+
     this.eventAggregator.subscribe('take-intervention-refused', payload => {
       console.log('--  refused drone controle', typeof payload, payload)
       this.itemTaken = undefined
@@ -51,6 +63,13 @@ export class Welcome {
     this.eventAggregator.subscribe('take-intervention-accepted', payload => {
       console.log('--  accepted drone controle', typeof payload, payload)
       this.droneControl = true
+    });
+
+    this.eventAggregator.subscribe('remove-intervention', payload => {
+      console.log('--  remove-intervention', typeof payload, payload)
+      const idx = this.interventions.findIndex(e => e.uuid === payload.uuid)
+      console.log('Remove idx', idx)
+      this.interventions.splice(idx, 1)
     });
   }
 

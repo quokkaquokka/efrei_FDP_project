@@ -25,6 +25,12 @@ export default class Socket {
       this.eventAggregator.publish('msg', message);
     })
 
+    this.socket.on('newViolation', message => {
+      console.log('SIO: newViolation', message)
+      if (typeof message === 'string') message = JSON.parse(message)
+      // do something (transform) with the message
+      this.eventAggregator.publish('newViolation', message);
+    })
 
 
     this.socket.on('newIntervention', message => {
@@ -33,18 +39,20 @@ export default class Socket {
       // do something (transform) with the message
       this.eventAggregator.publish('newIntervention', message);
     })
-    this.socket.on('disableIntervention', message => {
-      console.log('SIO: disableIntervention', message)
+
+    this.socket.on('disable-intervention', message => {
+      console.log('SIO: disable-intervention', message)
       if (typeof message === 'string') message = JSON.parse(message)
       // do something (transform) with the message
-      this.eventAggregator.publish('disableIntervention', message);
+      this.eventAggregator.publish('disable-intervention', message);
     })
-    this.socket.on('newViolation', message => {
-      console.log('SIO: newViolation', message)
+    this.socket.on('returned-intervention', message => {
+      console.log('SIO: returned-intervention', message)
       if (typeof message === 'string') message = JSON.parse(message)
       // do something (transform) with the message
-      this.eventAggregator.publish('newViolation', message);
+      this.eventAggregator.publish('returned-intervention', message);
     })
+
     this.socket.on('take-intervention-refused', message => {
       console.log('SIO: take-intervention-refused', message)
       if (typeof message === 'string') message = JSON.parse(message)
