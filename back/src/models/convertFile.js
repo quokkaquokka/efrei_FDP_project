@@ -63,6 +63,7 @@ const exp = module.exports =  {
     const filePath = path.join(__dirname, CsvFile)
     const pipeline = fs.createReadStream(filePath)
     this.handleStream(pipeline, options)
+    return 'OK'
   },
   parseCsvFromUrl: async function (url, options = {csv: {}}) {
     return axios({
@@ -73,17 +74,21 @@ const exp = module.exports =  {
     .then(async response => {
       const streamData = response.data
       this.handleStream(streamData, options)
+      return 'OK'
     })
   }
 
 }
+/*
 
 async function main() {
   // https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv
   await mongodb.connect();
-  //await exp.parseCsvFromUrl('https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv', {collectionName: 'historic-data', csv: {separator: ';'}})
+  await exp.parseCsvFromUrl('https://support.staffbase.com/hc/en-us/article_attachments/360009197031/username.csv', {collectionName: 'user', csv: {separator: ';'}})
   await exp.parseCsvFile('../../files_csv/test.csv', {collectionName: 'historic-data'})
   console.log('Done')
 }
 
 main()
+
+*/

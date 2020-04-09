@@ -57,68 +57,31 @@ export class View {
 	}
 
 	activate() {
-		this.getDatas();
+	  this.getDatas();
 	}
 
 	async getDatas() {
 	  const response = await axios.get(config.host + '/api/v1/historicdatas');
-		this.data = response.data;
-		// response.forEach
-		console.log(response.data[1]);
+	  this.data = response.data;
 	}
 
-	searchInfos() { // "chercher" button is pressed
-	  /*var table = document.getElementById("searchTable");
-		var row = table.insertRow(this.tableIndex);
-		this.tableIndex++;
-		var cellSummonsNb = row.insertCell(0);
-		var cellPlateId = row.insertCell(1);
-		var cellRegistrationState = row.insertCell(2);
-		var cellPlateType = row.insertCell(3);
-		var cellIssueDate = row.insertCell(4);
-		var cellViolationCode = row.insertCell(5);
-		var cellVehicleBodyType = row.insertCell(6);
-		var cellVehicleMake = row.insertCell(7);
-		var cellIssuingAgency = row.insertCell(8);
-		var cellStreetCode1 = row.insertCell(9);
-		var cellStreetCode2 = row.insertCell(10);
-		var cellStreetCode3 = row.insertCell(11);
-		var cellVehicleExpirationDate = row.insertCell(12);
-		var cellViolationLocation = row.insertCell(13);
-		var cellViolationPrecinct = row.insertCell(14);
-		var cellIssuerPrecinct = row.insertCell(15);
-		var cellIssuerCode = row.insertCell(16);
-		var cellIssuerCommand = row.insertCell(17);
-		var cellIssuerSquad = row.insertCell(18);
-		var cellViolationTime = row.insertCell(19);
-		var cellTimeFirstObserved = row.insertCell(20);
-		var cellViolationCounty = row.insertCell(21);
-		var cellViolationInFrontOfOrOpposite = row.insertCell(22);
-		var cellHouseNumber = row.insertCell(23);
-		var cellStreetName = row.insertCell(24);
-		var cellIntersectingStreet = row.insertCell(25);
-		var cellDateFirstObserved = row.insertCell(26);
-		var cellLawSection = row.insertCell(27);
-		var cellSubDivision = row.insertCell(28);
-		var cellViolationLegalCode = row.insertCell(29);
-		var cellDaysParkingInEffect = row.insertCell(30);
-		var cellFromHoursInEffect = row.insertCell(31);
-		var cellToHoursInEffect = row.insertCell(32);
-		var cellVehicleColor = row.insertCell(33);
-		var cellUnregisteredVehicle = row.insertCell(34);
-		var cellVehicleYear = row.insertCell(35);
-		var cellMeterNumber = row.insertCell(36);
-		var cellFeetFromCurb = row.insertCell(37);
-		var cellViolationPostCode = row.insertCell(38);
-		var cellViolationDescription = row.insertCell(39);
-		var cellNoStandingOrStoppingViolation = row.insertCell(40);
-		var cellHydrantViolation = row.insertCell(41);
-		var cellDoubleParkingViolation = row.insertCell(42);*/
-	  //SEARCH FUNCTION NEEDS TO BE IMPLEMENTED HERE
+	async searchInfos() {
+	  let searchInput = [];
+	  if (this.plateId) searchInput.push({ plateId: this.plateId });
+	  if (this.registrationState) searchInput.push({ registrationState: this.registrationState });
+	  if (this.plateType) searchInput.push({ plateType: this.plateType });
+	  if (this.issueDate) searchInput.push({ issueDate: this.issueDate });
+	  if (this.violationCode) searchInput.push({ violationCode: this.violationCode });
+	  if (this.vehicleBodyType) searchInput.push({ vehicleBodyType: this.vehicleBodyType });
+	  if (this.vehicleMake) searchInput.push({ vehicleMake: this.vehicleMake });
+	  if (this.violationPrecinct) searchInput.push({ violationPrecinct: this.violationPrecinct });
+	  if (this.issuerPrecinct) searchInput.push({ issuerPrecinct: this.issuerPrecinct });
+	  if (this.violationCounty) searchInput.push({ violationCounty: this.violationCounty });
+	  if (this.streetName) searchInput.push({ streetName: this.streetName });
+	  if (this.vehicleColor) searchInput.push({ vehicleColor: this.vehicleColor });
+	  if (this.vehicleYear) searchInput.push({ vehicleYear: this.vehicleYear });
 
-	  //example of cell filling (new line insertion is already implemented): cellExample.innerHTML = "CONTENTOFNEWCELL";
-	  //sadly, we have to do it for each of 43 cells...
+	  const response  = await axios.post(config.host + '/api/v1/searchdatas', searchInput);
+	  this.data = response.data;
 	}
-
-
 }

@@ -1,13 +1,69 @@
 <template>
-	<div class="form-group">
-		<h3>Ajout d'un historique</h3>
-		<input type="text" name="fichier" class="form-control" value.bind="file">
+	<div class="alert alert-success" role="alert" style="margin-top:10px;"if.bind="isUploaded">
+		Vos informations sont bien entrées en base de données.
 	</div>
-	<div class="form-row">
-		<div class="col-auto">
-		  <h3 for="inlineFormInput">Année</h3>
-		  <input type="text" class="inline form-control mb-2" name="année" value.bind="year">
+	<div class="form-group">
+		<div class="card" style="margin-top: 10px;">
+			<div class="card-header"> Ajout d'un historique une URL</div>
+			<div class="card-body" style="margin-left: 10px">
+				<form>
+					<div class="form-group row">
+						<select value.bind="selectedCategory" style="margin-right: 20px">
+							<option model.bind="null">Choose...</option>
+							<option repeat.for="cat of categories"
+								model.bind="cat.id"> ${cat.name}
+							</option>
+						</select>
+						<label class="col-form-label" style="width: 51px;">Url</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" value.bind='urlLink'>
+						</div>
+						<label class="col-form-label">Séparateur 
+							<button type="button" class="btn btn-primary-outline" data-toggle="tooltip" data-placement="top" title="Certain fichier CSV peuvent avoir un séparateur sépciale">
+								<i class="far fa-question-circle"></i>
+							</button>
+						</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" value.bind='separeteBy' placeholder='Ex: ,'>
+						</div>
+						<div class="col-sm-2">
+						</div>
+						<div class="col-sm-1">
+							<button type="submit" id="snd" class="btn btn-primary" click.delegate="sendUrl()" style="float: right;"><i class="fas fa-send"></i>&nbsp envoyer &nbsp</button>
+						</div>
+				</form>
+			</div>
+		</div>
+		<div class="card" style="margin-top: 10px;">
+			<div class="card-header"> Ajout d'un historique avec un chemin d'un fichier</div>
+			<div class="card-body" style="margin-left: 10px">
+				<form>
+					<div class="form-group row">
+						<select value.bind="selectCategory" style="margin-right: 20px">
+							<option model.bind="null">Choose...</option>
+							<option repeat.for="cat of categories"
+								model.bind="cat.id"> ${cat.name}
+							</option>
+						</select>
+						<label class="col-form-label">Chemin</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" value.bind="filePath">
+						</div>
+						<label class="col-form-label">Séparateur 
+							<button type="button" class="btn btn-primary-outline" data-toggle="tooltip" data-placement="top" title="Certain fichier CSV peuvent avoir un séparateur sépciale">
+								<i class="far fa-question-circle"></i>
+							</button>
+						</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" value.bind='fileSepareteBy' placeholder='Ex: ,'>
+						</div>
+						<div class="col-sm-2">
+						</div>
+						<div class="col-sm-1">
+							<button type="submit" id="snd" class="btn btn-primary" click.delegate="sendFile()" style="float: right;"><i class="fas fa-send"></i>&nbsp envoyer &nbsp</button>
+						</div>
+				</form>
+			</div>
 		</div>
 	</div>
-	<div style="float: right; margin-top: 10px"><button type="submit" id="snd" class="clickableTitle" click.delegate="sendMSG()" ><i class="fas fa-send"></i>&nbsp envoyer &nbsp</button></div>
 </template>
