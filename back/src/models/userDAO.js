@@ -27,7 +27,6 @@ const userDAO = module.exports = {
       })
     })
     .then(res => {
-      //console.log("Document inserted", res.ops);
       client.close();
       return res.ops;
     });

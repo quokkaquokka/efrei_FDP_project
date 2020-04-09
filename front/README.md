@@ -1,8 +1,19 @@
-# `terra-pretta-front`
+# `Projet Functionnal Data Programming the Front`
 
 This project is bootstrapped by [aurelia-cli](https://github.com/aurelia/cli).
 
 For more information, go to https://aurelia.io/docs/cli/webpack
+## prerequisite
+
+You must have node version 12.+
+
+You must have AureliaJS
+(if you don't have it :  `npm install aurelia-cli -g`)
+
+Your port: 8181 must be available
+
+In the directory 'Front/'
+Execute in the terminal `npm i` to dowload the dependancy
 
 ## Run dev app
 

@@ -44,7 +44,6 @@ export class View {
 	  this.fromHoursInEffect = null;
 	  this.toHoursInEffect = null;
 	  this.vehicleColor = null;
-	  // eslint-disable-next-line indent
 		this.unregisteredVehicle = null;
 	  this.vehicleYear = null;
 	  this.meterNumber = null;

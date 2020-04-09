@@ -28,7 +28,7 @@
     </tbody>
   </table>
 
-  <h3>Last Violations</h3>
+  <h3>Dernière Violations</h3>
   <table>
     <thead>
       <tr>
@@ -52,10 +52,10 @@
     </tbody>
   </table>
 
-  <div if.bind="droneControl" style="width: 500px; height: 200px; background-color: blue;">
+  <div if.bind="droneControl" style="width: 500px; height: 200px; background-color: grey;">
 
-  <button disabled.bind="pongReception" click.delegate="actionButton()">Ping</button>
-  <div style="width: 100px; height: 100px; background-color: blue;" style.bind="pongReception ? 'background-color: red': 'background-color: blue'">
+  <div style="width: 400px; height: 200px; background-color: gray;margin-top: 20px;float:center" style.bind="pongReception ? 'background-color: red': 'background-color: grey'">
+    <h3> Symbolise le client lourd qui prendra le controle du drone</h3>
   </div>
 
 </template>
